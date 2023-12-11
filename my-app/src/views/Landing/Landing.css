@@ -1,0 +1,64 @@
+/* Estilos para computadoras */
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@300&display=swap');
+body {
+    background-color: rgb(190, 186, 186);
+}
+
+.Landing {
+    background-color: rgb(243, 236, 236);
+    height: 129vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -5cm;
+    font-family: 'Ysabeau Office', sans-serif;
+}
+
+.Landing h1 {
+    color: rgb(5, 5, 5);
+    text-align: center;
+    font-size: 100px;
+    margin-bottom: 20px;
+}
+
+.button {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.Landing button {
+    justify-content: space-between;
+    border-radius: 8px;
+    border: none;
+    margin: auto;
+    height: 50px;
+    width: 150px;
+    transition: transform 0.2s;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(172, 170, 170);
+}
+
+.Landing button:hover {
+    transform: scale(1.02);
+    -webkit-box-shadow: 9px 11px 21px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 9px 11px 21px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 9px 11px 21px 1px rgba(0, 0, 0, 0.75);
+}
+
+/* Estilos para dispositivos móviles y tablets */
+@media (max-width: 768px) {
+    .Landing h1 {
+        font-size: 50px;
+    }
+
+    .Landing button {
+        width: 100px;
+    }
+
+    .button {
+        gap: 10px;
+    }
+}

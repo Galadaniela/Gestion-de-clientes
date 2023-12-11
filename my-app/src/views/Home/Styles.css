@@ -1,0 +1,174 @@
+/* Estilos para computadoras */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+h1 {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-family: 'Roboto', sans-serif;
+}
+
+.styled-table th {
+    background-color: #f2f2f2;
+    font-family: 'Roboto', sans-serif;
+}
+
+.styled-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.styled-table tr:hover {
+    background-color: #ddd;
+}
+
+input {
+    display: block; /* O display: inline-block; */
+    /* Otros estilos como width, padding, etc. */
+    font-family: 'Roboto', sans-serif;
+}
+
+.Edit,
+.Delete {
+    border-radius: 4px;
+    border: 2px;
+    background-color: rgb(56, 56, 56);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Edit:hover {
+    background-color: rgb(87, 87, 247);
+}
+
+.Delete:hover {
+    background-color: red;
+}
+
+.Guardar {
+    border-radius: 4px;
+    border: 2px;
+    background-color: rgb(56, 56, 56);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Guardar:hover {
+    background-color: rgb(9, 151, 9);
+}
+
+.form {
+    text-decoration: none;
+    /* text-align: center; */
+    /* margin-right: 40px; */
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.In {
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Cliente {
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
+    text-decoration: none;
+    /* Elimina el subrayado del enlace */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    /* background-color: rgb(226, 240, 240); */
+}
+
+.btn-cliente {
+    background-color: white;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cliente:hover {
+    background-color: #0056b3;
+}
+
+.Inicio {
+    text-decoration: none;
+    margin: 20px;
+    margin-right: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-Inicio {
+    background-color: white;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-Inicio:hover {
+    background-color: rgb(143, 137, 137);
+}
+
+/* Estilos para dispositivos móviles */
+/* @media screen and (max-width: 768px) {
+    body {
+      font-size: 16px;
+  }
+  h1{
+    text-align: center;
+    font-size: 20px;
+  }
+  .styled-table th, .styled-table td {
+      padding: 5px;
+  }
+
+  
+  .button {
+      margin-top: 5px;
+      gap: 10px;
+  }
+  
+
+ 
+} */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 24px; /* Ajusta el tamaño de fuente para dispositivos móviles */
+      text-align: center;
+  }
+
+  .styled-table th,
+  .styled-table td {
+      padding: 5px; /* Ajusta el espaciado en dispositivos móviles */
+  }
+
+  .btn-cliente,
+  .btn-Inicio {
+      padding: 5px 10px; /* Ajusta el espaciado de los botones en dispositivos móviles */
+  }
+}
