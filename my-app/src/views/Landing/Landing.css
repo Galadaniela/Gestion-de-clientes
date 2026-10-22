@@ -1,64 +1,112 @@
-/* Estilos para computadoras */
-@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@300&display=swap');
-body {
-    background-color: rgb(190, 186, 186);
-}
-
+/* ============================
+   🏠 LANDING
+   ============================ */
 .Landing {
-    background-color: rgb(243, 236, 236);
-    height: 129vh;
+    min-height: 100vh;
+    background: var(--bg);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin-top: -5cm;
-    font-family: 'Ysabeau Office', sans-serif;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Mancha de luz de fondo (detalle lindo) */
+.Landing::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .Landing h1 {
-    color: rgb(5, 5, 5);
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 60px;
+    letter-spacing: -0.04em;
     text-align: center;
-    font-size: 100px;
-    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    line-height: 0.95;
+}
+
+/* Acento sutil en el título */
+.Landing h1::after {
+    content: ".";
+    color: var(--accent);
 }
 
 .button {
     display: flex;
-    gap: 30px;
-    margin-top: 10px;
-    border-radius: 8px;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
-.Landing button {
-    justify-content: space-between;
-    border-radius: 8px;
-    border: none;
-    margin: auto;
-    height: 50px;
-    width: 150px;
-    transition: transform 0.2s;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(172, 170, 170);
+/* ============================
+   🔘 BOTONES LANDING
+   ============================ */
+.btn-landing {
+    display: inline-block;
+    padding: 18px 36px;
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-width: 180px;
+    text-align: center;
+    position: relative;
 }
 
-.Landing button:hover {
-    transform: scale(1.02);
-    -webkit-box-shadow: 9px 11px 21px 1px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 9px 11px 21px 1px rgba(0, 0, 0, 0.75);
-    box-shadow: 9px 11px 21px 1px rgba(0, 0, 0, 0.75);
+.btn-landing:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px var(--accent-glow);
 }
 
-/* Estilos para dispositivos móviles y tablets */
+.btn-landing:active {
+    transform: translateY(-1px);
+}
+
+/* ============================
+   📱 MÓVIL
+   ============================ */
 @media (max-width: 768px) {
     .Landing h1 {
-        font-size: 50px;
-    }
-
-    .Landing button {
-        width: 100px;
+        font-size: 3rem;
+        margin-bottom: 40px;
     }
 
     .button {
-        gap: 10px;
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .btn-landing {
+        width: 100%;
+        padding: 16px 24px;
     }
 }

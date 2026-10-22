@@ -1,174 +1,518 @@
-/* Estilos para computadoras */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
-h1 {
-    text-decoration: none;
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
+/* ==============================================================
+   🌙 GESTIÓN DE CLIENTES - VISTA CRM DARK MODE
+   ============================================================== */
+.Interior {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 36px 24px;
+    min-height: 100vh;
 }
 
-.styled-table {
+.Interior h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 28px;
+    letter-spacing: -0.03em;
+    border-left: 4px solid var(--accent);
+    padding-left: 18px;
+}
+
+/* ============================
+   🔝 BARRA SUPERIOR
+   ============================ */
+.barra-superior {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding: 18px 24px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.acciones-superior {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ============================
+   🔘 BOTONES GENERALES
+   ============================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-primario {
+    background-color: var(--accent);
+    color: var(--bg);
+}
+.btn-primario:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.btn-secundario {
+    background-color: transparent;
+    color: var(--text);
+    border-color: var(--border);
+}
+.btn-secundario:hover {
+    border-color: var(--border-hover);
+    background-color: var(--bg-card);
+    transform: translateY(-2px);
+}
+
+/* ============================
+   🏷️ SECCIONES Y BADGES
+   ============================ */
+.crm-seccion-bloque {
+    margin-bottom: 40px;
+}
+
+.crm-seccion-header {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid;
+}
+
+.badge-rojo {
+    color: var(--danger);
+    border-color: var(--danger);
+    background-color: var(--danger-glow);
+}
+
+.badge-verde {
+    color: var(--success);
+    border-color: var(--success);
+    background-color: rgba(0, 229, 160, 0.1);
+}
+
+.crm-vacio {
+    padding: 36px 20px;
+    background: var(--bg-elevated);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+/* ==============================================================
+   🗂️ GRID DE TARJETAS CRM
+   ============================================================== */
+.crm-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 22px;
+}
+
+/* Tarjeta Base */
+.crm-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.crm-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.crm-card-deuda {
+    border-left: 5px solid var(--danger);
+}
+
+.crm-card-aldia {
+    border-left: 5px solid var(--success);
+}
+
+/* Cabecera de la Tarjeta */
+.crm-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.crm-razon-social {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.crm-subtitulo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.83rem;
+    color: var(--text-muted);
+}
+
+.crm-contacto {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.crm-canal-pill {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    text-transform: uppercase;
+}
+
+/* Semáforo de Próxima Compra */
+.badge-semaforo {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: 999px;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+.badge-semaforo-verde {
+    background: rgba(0, 229, 160, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(0, 229, 160, 0.35);
+}
+
+.badge-semaforo-amarillo {
+    background: rgba(255, 204, 0, 0.14);
+    color: #ffcc00;
+    border: 1px solid rgba(255, 204, 0, 0.4);
+    box-shadow: 0 0 12px rgba(255, 204, 0, 0.12);
+}
+
+.badge-semaforo-rojo {
+    background: rgba(255, 77, 94, 0.15);
+    color: var(--danger);
+    border: 1px solid rgba(255, 77, 94, 0.45);
+    box-shadow: 0 0 14px rgba(255, 77, 94, 0.15);
+}
+
+.badge-semaforo-gris {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+/* Cuerpo de la Tarjeta */
+.crm-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px 0;
+}
+
+.crm-seccion-info {
+    background: var(--bg-card);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.crm-seccion-titulo {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.crm-dato-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+}
+
+.crm-dato-fila .lbl {
+    color: var(--text-muted);
+}
+
+.crm-dato-fila .val {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.crm-proxima-destacada {
+    background: rgba(200, 255, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 5px;
+    border: 1px dashed rgba(200, 255, 0, 0.3);
+}
+
+.val-destacado {
+    color: var(--accent);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.val-rojo {
+    color: var(--danger);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.val-verde {
+    color: var(--success);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.crm-direccion-trunc {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Pie de Tarjeta y Botones */
+.crm-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.crm-acciones-izq,
+.crm-acciones-der {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-crm {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-whatsapp {
+    background: #25d366;
+    color: #042611;
+    font-weight: 700;
+}
+.btn-whatsapp:hover {
+    background: #20ba5a;
+    box-shadow: 0 0 16px rgba(37, 211, 102, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-saldar {
+    background: transparent;
+    color: var(--success);
+    border-color: var(--success);
+}
+.btn-saldar:hover {
+    background: var(--success);
+    color: #000;
+}
+
+.btn-editar {
+    background: transparent;
+    color: var(--info);
+    border-color: var(--info);
+}
+.btn-editar:hover {
+    background: var(--info);
+    color: #000;
+}
+
+.btn-eliminar {
+    background: transparent;
+    color: var(--danger);
+    border-color: var(--danger);
+    padding: 7px 10px;
+}
+.btn-eliminar:hover {
+    background: var(--danger);
+    color: #fff;
+    box-shadow: 0 0 12px var(--danger-glow);
+}
+
+/* ==============================================================
+   ✏️ MODO EDICIÓN INTEGRADO EN TARJETA
+   ============================================================== */
+.crm-card-edit-form {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: 'Roboto', sans-serif;
 }
 
-.styled-table th,
-.styled-table td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-    font-family: 'Roboto', sans-serif;
+.crm-edit-header h4 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-size: 0.95rem;
 }
 
-.styled-table th {
-    background-color: #f2f2f2;
-    font-family: 'Roboto', sans-serif;
+.crm-edit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
-.styled-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.styled-table tr:hover {
-    background-color: #ddd;
+.edit-field label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-input {
-    display: block; /* O display: inline-block; */
-    /* Otros estilos como width, padding, etc. */
-    font-family: 'Roboto', sans-serif;
+.edit-field input,
+.edit-field select {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
 }
 
-.Edit,
-.Delete {
-    border-radius: 4px;
-    border: 2px;
-    background-color: rgb(56, 56, 56);
-    color: white;
-    font-family: 'Roboto', sans-serif;
+.edit-field input:focus,
+.edit-field select:focus {
+    outline: none;
+    border-color: var(--accent);
 }
 
-.Edit:hover {
-    background-color: rgb(87, 87, 247);
+.edit-field-highlight {
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
 }
 
-.Delete:hover {
-    background-color: red;
+.txt-rojo {
+    color: var(--danger);
 }
 
-.Guardar {
-    border-radius: 4px;
-    border: 2px;
-    background-color: rgb(56, 56, 56);
-    color: white;
-    font-family: 'Roboto', sans-serif;
+.txt-verde {
+    color: var(--success);
 }
 
-.Guardar:hover {
-    background-color: rgb(9, 151, 9);
+.crm-card-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
 
-.form {
-    text-decoration: none;
-    /* text-align: center; */
-    /* margin-right: 40px; */
-    color: black;
-    font-family: 'Roboto', sans-serif;
+.btn-guardar {
+    background: var(--success);
+    color: #000;
+    font-weight: 700;
 }
 
-.In {
-    text-decoration: none;
-    color: black;
-    font-family: 'Roboto', sans-serif;
+.btn-cancelar {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: var(--border);
 }
 
-.Cliente {
-    /* display: flex;
-    justify-content: center; */
-    text-align: center;
-    text-decoration: none;
-    /* Elimina el subrayado del enlace */
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    /* background-color: rgb(226, 240, 240); */
-}
-
-.btn-cliente {
-    background-color: white;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-cliente:hover {
-    background-color: #0056b3;
-}
-
-.Inicio {
-    text-decoration: none;
-    margin: 20px;
-    margin-right: 15px;
-    font-family: 'Roboto', sans-serif;
-}
-
-.btn-Inicio {
-    background-color: white;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-
-.btn-Inicio:hover {
-    background-color: rgb(143, 137, 137);
-}
-
-/* Estilos para dispositivos móviles */
-/* @media screen and (max-width: 768px) {
-    body {
-      font-size: 16px;
-  }
-  h1{
-    text-align: center;
-    font-size: 20px;
-  }
-  .styled-table th, .styled-table td {
-      padding: 5px;
-  }
-
-  
-  .button {
-      margin-top: 5px;
-      gap: 10px;
-  }
-  
-
- 
-} */
+/* ============================
+   📱 RESPONSIVE
+   ============================ */
 @media (max-width: 768px) {
-  h1 {
-      font-size: 24px; /* Ajusta el tamaño de fuente para dispositivos móviles */
-      text-align: center;
-  }
+    .Interior {
+        padding: 20px 14px;
+    }
 
-  .styled-table th,
-  .styled-table td {
-      padding: 5px; /* Ajusta el espaciado en dispositivos móviles */
-  }
+    .crm-cards-grid {
+        grid-template-columns: 1fr;
+    }
 
-  .btn-cliente,
-  .btn-Inicio {
-      padding: 5px 10px; /* Ajusta el espaciado de los botones en dispositivos móviles */
-  }
+    .barra-superior {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .acciones-superior {
+        justify-content: stretch;
+    }
+
+    .btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .crm-edit-grid {
+        grid-template-columns: 1fr;
+    }
 }

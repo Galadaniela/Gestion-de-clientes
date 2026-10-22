@@ -1,19 +1,18 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const app = require("./app");
+const { sequelize } = require("./db");
 
-// const {onRequest} = require("firebase-functions/v2/https");
-// const logger = require("firebase-functions/logger");
+const PORT = process.env.PORT || 3001;
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ Conexión a MySQL OK");
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Error al arrancar:", error.message);
+    process.exit(1);
+  }
+})();

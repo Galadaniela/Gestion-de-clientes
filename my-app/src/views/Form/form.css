@@ -1,91 +1,224 @@
-/* Estilos para computadoras */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+/* ============================
+   🎨 VARIABLES
+   ============================ */
+:root {
+    --bg: #0a0a0f;
+    --bg-elevated: #16161f;
+    --bg-card: #1a1a24;
+    --border: #262633;
+    --border-hover: #3a3a4a;
 
-form {
+    --text: #f0f0f5;
+    --text-muted: #8a8a99;
+    --text-dim: #5a5a6a;
+
+    --accent: #c8ff00;
+    --accent-hover: #d4ff33;
+    --accent-glow: rgba(200, 255, 0, 0.15);
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ============================
+   📝 CONTENEDOR
+   ============================ */
+.form-container {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Mancha de luz sutil arriba */
+.form-container::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.form-container h1 {
     text-align: center;
-    border: 2px; /* Agrega un color al borde */
-    background-color: rgb(231, 228, 222);
-    border-radius: 10px; /* Redondea las esquinas */
-    width: 30%; /* Ajusta el ancho del formulario según tus necesidades */
-    margin: 0 auto; /* Centra el formulario en la pantalla */
-    padding: 20px; /* Añade un relleno para separar el contenido del borde */
-    flex-direction: column;
-    -webkit-box-shadow: 7px 6px 23px -7px rgba(0,0,0,0.75);
-    -moz-box-shadow: 7px 6px 23px -7px rgba(0,0,0,0.75);
-    box-shadow: 7px 6px 23px -7px rgba(0,0,0,0.75);
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
 }
 
-.input-group {
-    text-align: center;
-    margin: auto;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    text-decoration: none;
-    border: none;
-    font-family: 'Roboto', sans-serif;
-    transition: transform 0.2s; /* Agregar una transición de 0.2 segundos a la propiedad transform */
-}
-
-.input-group:hover {
-    transform: scale(1.1); /* Hacer zoom en 1.1x al pasar el ratón por encima */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-}
-
-input::placeholder {
-    /* Hace que el texto del placeholder sea transparente */
-    text-align: center;
-    color: #888;
-}
-
-input:hover::placeholder {
-    color: transparent;
-}
-
-.btn-form {
-    border-radius: 8px;
-    border: none;
-    margin-top: 20px;
-    height: 30px;
-    transition: transform 0.2s;
-    font-family: 'Roboto', sans-serif;
-}
-
-.btn-form:hover {
-    background-color: #0056b3;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
+/* ============================
+   🔙 BOTÓN VOLVER
+   ============================ */
 .btn-back {
-    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .btn-link {
-    border-radius: 8px;
-    border: none;
-    margin: auto;
-    height: 30px;
-    transition: transform 0.2s;
-    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .btn-link:hover {
-    background-color: #0056b3;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--bg-elevated);
 }
 
-/* Estilos para dispositivos móviles y tablets */
+/* ============================
+   📋 FORM
+   ============================ */
+.form-cliente {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--bg-elevated);
+    padding: 36px 32px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+}
+
+.form-subtitulo {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin: 28px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.02em;
+}
+
+.form-subtitulo:first-of-type {
+    margin-top: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.input-group {
+    padding: 12px 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text);
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.input-group::placeholder {
+    color: var(--text-dim);
+}
+
+.input-group:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: var(--bg);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.input-group[readonly] {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: var(--border);
+    color: var(--accent);
+    font-weight: 600;
+    cursor: default;
+}
+
+/* Icono del calendario en blanco */
+.input-group[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.input-group[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* ============================
+   🔘 BOTÓN ENVIAR
+   ============================ */
+.btn-form {
+    width: 100%;
+    padding: 16px;
+    margin-top: 24px;
+    background-color: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-form:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 0 32px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.btn-form:active {
+    transform: translateY(0);
+}
+
+/* ============================
+   📱 MÓVIL
+   ============================ */
 @media (max-width: 768px) {
-    form {
-        width: 90%; /* Ajusta el ancho del formulario para dispositivos móviles */
+    .form-container {
+        padding: 24px 14px;
     }
 
-    .btn-form,
-    .btn-link {
-        width: 100%; /* Asegura que los botones ocupen todo el ancho de la pantalla */
+    .form-cliente {
+        padding: 24px 20px;
     }
 }

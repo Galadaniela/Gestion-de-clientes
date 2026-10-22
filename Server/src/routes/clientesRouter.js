@@ -1,7 +1,3 @@
-/* eslint-disable new-cap */
-const functions = require("firebase-functions");
-// const express = require("express");
-const corsApp = require("../../CORS");
 const {Router} = require("express");
 const clientesRouter = Router();
 const {clientesInfo, nuevoClientes, clienteId, updateClientes, eliminarClientes} = require("../controller/clientesController.js");
@@ -28,4 +24,4 @@ clientesRouter.delete("/:id", eliminarClientes);
 
 
 module.exports = clientesRouter;
-exports.tuFuncion = functions.https.onRequest(corsApp);
+

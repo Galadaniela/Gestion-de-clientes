@@ -1,13 +1,79 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ============================
+   🌙 GLOBAL DARK MODERN
+   ============================ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --bg-elevated: #16161f;
+  --bg-card: #1a1a24;
+  --border: #262633;
+  --border-hover: #3a3a4a;
+
+  --text: #f0f0f5;
+  --text-muted: #8a8a99;
+  --text-dim: #5a5a6a;
+
+  --accent: #c8ff00;
+  --accent-hover: #d4ff33;
+  --accent-glow: rgba(200, 255, 0, 0.15);
+
+  --danger: #ff4d5e;
+  --danger-glow: rgba(255, 77, 94, 0.15);
+
+  --info: #4dabff;
+  --info-glow: rgba(77, 171, 255, 0.15);
+
+  --success: #00e5a0;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Selección de texto */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
 }
