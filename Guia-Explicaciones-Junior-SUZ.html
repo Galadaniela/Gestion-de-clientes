@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SUZ CRM — Guía de Explicaciones Técnicas para Desarrollador Junior</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+
+    @page {
+      margin: 12mm;
+      size: A4;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1a1a24;
+      background: #ffffff;
+      line-height: 1.5;
+      font-size: 12.5px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      border-bottom: 3px solid #10b981;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .header .subtitle {
+      font-size: 12.5px;
+      color: #64748b;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 7px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #475569;
+    }
+
+    .section {
+      margin-bottom: 18px;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      color: #0f172a;
+      border-left: 4px solid #3b82f6;
+      padding-left: 10px;
+      margin: 0 0 9px 0;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+    }
+
+    .badge-alert {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .badge-speech {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+
+    .badge-code {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+
+    .speech-box {
+      background: #f0fdf4;
+      border-left: 4px solid #10b981;
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      color: #14532d;
+      margin: 8px 0;
+      font-style: italic;
+    }
+
+    .speech-box strong {
+      font-style: normal;
+      color: #0f172a;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 7px 0;
+      font-size: 11px;
+    }
+
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 5px 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    ul, ol {
+      margin: 4px 0 6px 16px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: 10px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>SUZ CRM — Manual de Explicaciones Técnicas</h1>
+    <p class="subtitle">Guía de defensa y justificación de arquitectura de software para Desarrollador Junior</p>
+  </div>
+
+  <div class="meta-box">
+    <span><strong>Proyecto:</strong> SUZ (Gestión Comercial Mayorista)</span>
+    <span><strong>Stack:</strong> React, Redux, Node.js, Express, Sequelize, MySQL</span>
+    <span><strong>Versión:</strong> Producción y Calidad UI/UX Completa</span>
+  </div>
+
+  <!-- TEMA 1 -->
+  <div class="section">
+    <div class="section-title">1. Estandarización y Sincronización de Nombres (Full Stack)</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué problema había?</span>
+      <p>Existía un desacople de nombres entre la pantalla (Frontend), la API (Controlador) y la Base de Datos (Modelo MySQL):</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Frontend (Form / Card)</th>
+            <th>Controlador (Node.js)</th>
+            <th>Modelo (Sequelize)</th>
+            <th>Resultado anterior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>contacto</code></td>
+            <td><em>no existía</em></td>
+            <td><em>no existía</em></td>
+            <td>❌ Se perdía el nombre de contacto</td>
+          </tr>
+          <tr>
+            <td><code>frecuencia</code></td>
+            <td><code>frecuenciaCompra</code></td>
+            <td><code>FrecuenciaDecompra</code></td>
+            <td>❌ MySQL guardaba NULL o fallaba</td>
+          </tr>
+          <tr>
+            <td><code>cantidadKg</code></td>
+            <td><code>cantidadKg</code></td>
+            <td><code>cantidadDeKg</code></td>
+            <td>❌ Pérdida de kilos facturados</td>
+          </tr>
+          <tr>
+            <td><code>precioKg</code></td>
+            <td><code>precioKg</code></td>
+            <td><code>precioPorKg</code></td>
+            <td>❌ Pérdida de precio por kilo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <span class="badge badge-code">¿Qué se hizo en el código?</span>
+      <p>Se unificaron los nombres con exactitud en las 3 capas: <code>contacto</code>, <code>frecuencia</code>, <code>producto</code>, <code>marca</code>, <code>cantidadKg</code>, <code>precioKg</code>, <code>monto</code> y <code>deuda</code>.</p>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo podés explicarlo si te preguntan?</strong>
+        "Teníamos un error de sincronización de nombres: el frontend enviaba los datos como <code>frecuencia</code> y <code>cantidadKg</code>, pero en la base de datos se habían bautizado como <code>FrecuenciaDecompra</code> y <code>cantidadDeKg</code>, y además faltaba registrar el campo <code>contacto</code>. Lo que hice fue normalizar los nombres en el modelo y en el controlador para que toda la información viaje directo de la pantalla a MySQL sin perderse en el camino."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 2 -->
+  <div class="section">
+    <div class="section-title">2. Migración Segura en MySQL ({ alter: true } vs { force: true })</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué problema crítico había con la base de datos?</span>
+      <p>Había riesgos graves para los datos de la empresa:</p>
+      <ol>
+        <li><strong>Riesgo de pérdida total de datos:</strong> En el script <code>crear_tablas.js</code> figuraba <code>sync({ force: true })</code>. El parámetro <code>force: true</code> ejecuta un <code>DROP TABLE</code> destructivo que borra todas las filas existentes de clientes reales.</li>
+        <li><strong>Tablas desactualizadas en el arranque:</strong> En <code>Server/src/index.js</code> solo se autenticaba la conexión con MySQL, pero nunca se sincronizaban las tablas; las columnas nuevas no se creaban en el servidor.</li>
+        <li><strong>Error de rango numérico en Deuda:</strong> Los campos <code>monto</code> y <code>deuda</code> estaban configurados como <code>DECIMAL(8, 2)</code>, lo que solo permite importes hasta $999.999. Como un cliente real ("La Reina") adeudaba $1.320.000, MySQL rechazaba la actualización con el error: <code>Out of range value for column 'deuda'</code>.</li>
+      </ol>
+
+      <span class="badge badge-code">¿Qué se hizo en el código?</span>
+      <ul>
+        <li>Se configuró <strong><code>sequelize.sync({ alter: true })</code></strong> tanto en <code>Server/src/index.js</code> como en <code>Server/src/crear_tablas.js</code>.</li>
+        <li>Se ampliaron los campos <code>monto</code> y <code>deuda</code> a <strong><code>DECIMAL(12, 2)</code></strong> en <code>Server/src/models/Clientes.js</code> para permitir facturaciones mayoristas de hasta 10 mil millones de pesos.</li>
+        <li>Se ejecutó la migración: se agregaron físicamente las 6 columnas en MySQL y se preservó intacto el cliente existente con su deuda real de $1.320.000.</li>
+      </ul>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "Para proteger la información real de los clientes, cambiamos la estrategia de sincronización de Sequelize. NUNCA usamos <code>force: true</code> en producción porque borraría todas las tablas. En su lugar, implementamos <code>alter: true</code>. Esto le indica a Sequelize que compare nuestros modelos en JavaScript contra las tablas reales de MySQL y ejecute sentencias <code>ALTER TABLE</code> para crear únicamente las columnas nuevas sin tocar los registros guardados. Además, ampliamos el tipo de dato a <code>DECIMAL(12, 2)</code> para que el sistema soporte facturaciones y deudas mayores a un millón de pesos sin errores de desbordamiento de memoria."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 3 -->
+  <div class="section">
+    <div class="section-title">3. Lógica del Semáforo Comercial (Próxima Compra)</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué valor comercial aporta?</span>
+      <p>El cliente necesitaba que el sistema no fuera una simple agenda estática, sino una herramienta para que los vendedores sepan a quién llamar cada mañana para reponer mercadería (harina/azúcar).</p>
+
+      <span class="badge badge-code">¿Cómo se calcula en el código?</span>
+      <p>En <code>Card.js</code> se programó la función <code>calcularCicloComercial()</code>:</p>
+      <ul>
+        <li>Toma la <code>fecha</code> de la última compra y le suma los días de <code>frecuencia</code> (7, 15 o 30 días).</li>
+        <li>Calcula la diferencia de días respecto a la fecha actual:
+          <ul>
+            <li>🟢 <strong>En fecha (> 2 días restantes):</strong> El cliente todavía tiene stock suficiente.</li>
+            <li>🟡 <strong>¡Toca comprar HOY! (0 a 2 días):</strong> Momento exacto de contactarlo por WhatsApp.</li>
+            <li>🔴 <strong>Vencido (< 0 días):</strong> Pasó su fecha habitual; alerta para retener la cuenta comercial.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "Convertimos la vista en un CRM inteligente: sumamos la fecha de la última compra más la frecuencia habitual del cliente y generamos automáticamente una fecha de próxima compra estimada. Le agregamos un semáforo visual con tres estados para que el vendedor vea de un solo vistazo a quién tiene que reponerle hoy."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 4 -->
+  <div class="section">
+    <div class="section-title">4. Cuenta Corriente y Acción Saldar en Vivo</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Cómo funciona el cálculo financiero?</span>
+      <p>Evitamos que el usuario haga cálculos mentales y restas que provoquen errores:</p>
+      <ul>
+        <li><strong>Monto Total:</strong> Se calcula multiplicando <code>cantidadKg * precioKg</code>.</li>
+        <li><strong>Monto Pagado:</strong> El dinero que el cliente efectivamente entregó.</li>
+        <li><strong>Deuda:</strong> Se calcula automáticamente como <code>Monto Total - Monto Pagado</code> (resaltada en rojo si debe dinero).</li>
+        <li><strong>Botón Saldar:</strong> En un solo clic actualiza la deuda a $0 y equipara el monto pagado al total.</li>
+      </ul>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "Separamos con claridad el Monto Total del Monto Pagado. El total se calcula solo multiplicando kilos por precio, y la deuda se actualiza en tiempo real como la diferencia restante. Al hacer clic en Saldar, el sistema limpia la deuda automáticamente."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 5 -->
+  <div class="section">
+    <div class="section-title">5. Control de Acceso y Roles por Área (Login y ProtectedRoute)</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué problema comercial y de seguridad resuelve?</span>
+      <p>Originalmente cualquier persona que abría la aplicación podía navegar libremente y modificar clientes de cualquier provincia sin identificarse. En una distribuidora con equipos de venta zonales:</p>
+      <ul>
+        <li>Un vendedor de <strong>Chaco</strong> no debe interferir con la cartera de clientes de <strong>Corrientes</strong> ni del <strong>Interior de Chaco</strong>.</li>
+        <li>El vendedor solo debe ver su área de trabajo asignada para no confundirse de rutas ni alterar saldos ajenos.</li>
+        <li>Únicamente la <strong>Administración</strong> debe tener potestad para alternar entre todas las provincias y dar de alta clientes de manera global.</li>
+      </ul>
+
+      <span class="badge badge-code">¿Cómo se implementó en el código? (Arquitectura simple y legible)</span>
+      <p>Diseñamos una solución liviana sin librerías pesadas, basada en cuatro componentes fundamentales:</p>
+      <ol>
+        <li><strong>Módulo de Autenticación (<code>src/utils/auth.js</code>):</strong> Define credenciales por zona y persiste en <code>localStorage</code>.</li>
+        <li><strong>Componente Guardián de Rutas (<code>src/components/ProtectedRoute.jsx</code>):</strong> Verifica sesión y redirige automáticamente al login o a la provincia autorizada.</li>
+        <li><strong>Barra Superior de Sesión (<code>src/components/HeaderNav/HeaderNav.jsx</code>):</strong> Badges por área, botón de logout y conmutador exclusivo para el Admin.</li>
+        <li><strong>Pantalla de Login con Demo Buttons (<code>src/views/Login/Login.jsx</code>):</strong> Accesos rápidos con 1 clic para testing y presentación.</li>
+      </ol>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "Para organizar el trabajo comercial y proteger la información confidencial entre zonas, implementamos un control de acceso por roles. Creamos un componente envoltorio llamado <code>ProtectedRoute</code> en React Router. Cuando alguien intenta acceder a una URL, primero chequeamos si tiene sesión activa en <code>localStorage</code>; si no la tiene, va directo a la pantalla de Login. Y si un vendedor intenta meterse por enlace directo a la cartera de otra provincia, el sistema intercepta la petición y lo redirige automáticamente a su zona asignada. El usuario Administrador es el único con permisos globales para auditar todas las áreas y alternar entre provincias desde la barra superior."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 6: DEMO CREDENCIALES -->
+  <div class="section">
+    <div class="section-title">6. Credenciales y Atajos de Demostración</div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Contraseña</th>
+            <th>Rol / Permiso</th>
+            <th>Área Asignada</th>
+            <th>Destino Inicial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>admin</strong></td>
+            <td><code>123</code></td>
+            <td>Administrador General</td>
+            <td>Todas las provincias</td>
+            <td><code>/</code> (Selector General)</td>
+          </tr>
+          <tr>
+            <td><strong>chaco</strong></td>
+            <td><code>123</code></td>
+            <td>Vendedor Chaco</td>
+            <td>Chaco (Resistencia)</td>
+            <td><code>/Chaco</code></td>
+          </tr>
+          <tr>
+            <td><strong>corrientes</strong></td>
+            <td><code>123</code></td>
+            <td>Vendedor Corrientes</td>
+            <td>Corrientes Capital</td>
+            <td><code>/corrientes</code></td>
+          </tr>
+          <tr>
+            <td><strong>interior</strong></td>
+            <td><code>123</code></td>
+            <td>Vendedor Interior</td>
+            <td>Interior de Chaco</td>
+            <td><code>/Interior</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TEMA 7: SEGURIDAD Y .ENV -->
+  <div class="section">
+    <div class="section-title">7. Seguridad, Variables de Entorno (.env) y Preparación para Producción</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué problemas existían?</span>
+      <p>Contraseñas de base de datos en texto plano en <code>db.js</code>, URLs fijas <code>http://localhost:3001</code> dispersas en 6 archivos del frontend y CORS bloqueado en localhost.</p>
+
+      <span class="badge badge-code">¿Cómo se resolvió en el código?</span>
+      <ul>
+        <li><strong>Backend:</strong> Archivo <code>Server/.env</code> con claves de MySQL y puerto, leído con <code>dotenv</code>.</li>
+        <li><strong>Frontend:</strong> Módulo centralizador <code>src/utils/config.js</code> que exporta <code>API_URL = process.env.REACT_APP_API_URL</code>.</li>
+        <li><strong>Git:</strong> Archivo <code>.gitignore</code> reforzado para no subir secretos y plantillas <code>.env.example</code> para colaboradores.</li>
+      </ul>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "Por buenas prácticas de seguridad y mantenibilidad, desacoplamos la configuración del código fuente mediante variables de entorno. Nunca se deben dejar credenciales de base de datos ni URLs de red escritas fijas en el código. Implementamos <code>dotenv</code> en el servidor para gestionar la conexión a MySQL de manera privada. En el frontend, centralizamos la URL de la API en un único módulo <code>config.js</code> con el prefijo <code>REACT_APP_</code>. Por último, configuramos <code>.gitignore</code> para que jamás suba los archivos <code>.env</code> y dejamos plantillas <code>.env.example</code> documentadas para el equipo."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 8: TOASTS Y LIMPIEZA -->
+  <div class="section">
+    <div class="section-title">8. Pulido UI/UX: Notificaciones Toast vs Alerts Nativos y Limpieza de Código</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué problema de experiencia de usuario había?</span>
+      <p>Las ventanas emergentes <code>alert()</code> del navegador pausaban la ejecución de JavaScript y tenían una estética gris anticuada que rompía el Dark Mode. Además, existían variables sin uso en Redux (<code>CREAT_CLIENTE</code>) que producían advertencias.</p>
+
+      <span class="badge badge-code">¿Cómo se resolvió en el código?</span>
+      <ol>
+        <li><strong>Contexto Toast (<code>src/context/ToastContext.jsx</code>):</strong> Notificaciones flotantes no bloqueantes con soporte para <code>success</code>, <code>error</code>, <code>warning</code> e <code>info</code> con cierre automático a los 3.5 segundos.</li>
+        <li><strong>Integración en Eventos Clave:</strong> Registro de clientes, saldar deudas y acciones del CRM.</li>
+        <li><strong>Build 100% Limpio:</strong> Se eliminaron advertencias de ESLint, logrando <strong>0 warnings y 0 errores</strong>.</li>
+      </ol>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "Para darle una terminación profesional y moderna al sistema, eliminamos las alertas emergentes <code>alert()</code> del navegador que congelaban la pantalla y arruinaban el diseño Dark Mode. Implementamos un sistema propio y liviano de notificaciones Toast usando React Context. Ahora, cada vez que un usuario registra un cliente, salda una cuenta o comete un error de validación, aparece una tarjeta animada y elegante en la esquina superior que informa la acción y desaparece sola a los 3 segundos sin obligar al usuario a hacer clic. Además, limpiamos las advertencias de código en Redux para asegurar un empaquetado de producción 100% limpio."
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMA 9 (NUEVO: CLARIFICACIÓN DE DOMINIO INTERIOR DE CHACO) -->
+  <div class="section">
+    <div class="section-title">9. Clarificación de Dominio Comercial: "Interior" a "Interior de Chaco"</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Qué ambigüedad comercial existía?</span>
+      <p>El término genérico <em>"Interior"</em> resultaba ambiguo para los equipos de venta y la administración, ya que en el Nordeste argentino podía aludir al interior de Corrientes o de cualquier otra provincia. En la logística real de la empresa distribuidora mayorista, las zonas comerciales están definidas como:</p>
+      <ul>
+        <li><strong>Chaco (Gran Resistencia):</strong> Clientes de la capital provincial y ejido urbano cercano.</li>
+        <li><strong>Corrientes:</strong> Clientes de Corrientes Capital.</li>
+        <li><strong>Interior de Chaco:</strong> Localidades y pueblos chaqueños (Presidencia Roque Sáenz Peña, Villa Ángela, Castelli, Charata, etc.).</li>
+      </ul>
+
+      <span class="badge badge-code">¿Cómo se ajustó en la interfaz y en el código?</span>
+      <ul>
+        <li><strong>Portada Landing (<code>Landing.jsx</code>):</strong> El botón de acceso se renombró a <code>INTERIOR DE CHACO</code> y <code>CHACO (RESISTENCIA)</code> para máxima claridad visual.</li>
+        <li><strong>Encabezado de la Vista (<code>Interior.jsx</code>):</strong> Se actualizó el título principal a <code>Clientes en Interior de Chaco</code>.</li>
+        <li><strong>Barra Superior y Perfil (<code>HeaderNav.jsx</code> y <code>auth.js</code>):</strong> La barra de navegación para el Administrador indica <code>Interior de Chaco</code> y el vendedor asignado muestra el distintivo <code>📍 Interior de Chaco</code>.</li>
+        <li><strong>Botonera de Login (<code>Login.jsx</code>):</strong> Se actualizó el botón de acceso rápido de la demo a <code>📍 Interior de Chaco</code>.</li>
+        <li><strong>Formulario Comercial (<code>Form.jsx</code>):</strong> Se reemplazó el campo de texto libre por un <code>&lt;select&gt;</code> desplegable con las tres zonas exactas para imposibilitar errores de tipeo.</li>
+        <li><strong>Compatibilidad en MySQL:</strong> Se preservó el identificador interno <code>"interior"</code> en la base de datos para no alterar las consultas históricas ni quebrar registros existentes.</li>
+      </ul>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicarlo con tus palabras si te preguntan?</strong>
+        "El término 'Interior' era demasiado genérico y generaba confusión en la operativa comercial, porque no aclaraba a qué provincia pertenecía. Lo estandarizamos en toda la interfaz como 'Interior de Chaco' para diferenciarlo con total precisión de Resistencia Capital y de Corrientes. En el formulario convertimos el ingreso de zona en un selector desplegable con las tres opciones claras, evitando que los usuarios cometan errores ortográficos, y mantuvimos el valor 'interior' a nivel base de datos para preservar la compatibilidad con todas las consultas previas."
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    SUZ CRM • Guía de referencia técnica para el equipo de desarrollo • Archivo generado automáticamente
+  </div>
+
+</body>
+</html>

@@ -3,6 +3,7 @@
 // desglose de productos y cuenta corriente con botón directo de WhatsApp.
 
 import React, { useState } from "react";
+import { useToast } from "../../context/ToastContext";
 
 export const calcularCicloComercial = (fechaUltima, diasFrecuencia = 7) => {
   if (!fechaUltima) {
@@ -76,6 +77,7 @@ const Card = ({
   handleDeleteCliente,
   handleEditCliente,
 }) => {
+  const { showToast } = useToast();
   const [editando, setEditando] = useState(false);
   const [datosEditados, setDatosEditados] = useState(null);
 
@@ -127,6 +129,7 @@ const Card = ({
     };
     handleEditCliente(clienteEditado);
     setEditando(false);
+    showToast(`¡Cliente ${clienteEditado.name} actualizado!`, "success");
   };
 
   // 📅 Datos y cálculos para modo lectura:
@@ -359,6 +362,7 @@ const Card = ({
                         monto: montoTotalNumero,
                         deuda: 0,
                       });
+                      showToast(`¡Deuda de ${cliente.name} saldada exitosamente!`, "success");
                     }
                   }}
                 >
@@ -377,6 +381,7 @@ const Card = ({
                 onClick={() => {
                   if (window.confirm(`¿Eliminar a ${cliente.name}?`)) {
                     handleDeleteCliente && handleDeleteCliente(cliente);
+                    showToast(`Cliente ${cliente.name} eliminado`, "info");
                   }
                 }}
               >

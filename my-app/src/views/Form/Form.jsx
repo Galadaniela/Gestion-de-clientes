@@ -5,11 +5,14 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { postClientes } from "../../redux/actions";
 import { useDispatch } from "react-redux";
+import { API_URL } from "../../utils/config";
+import { useToast } from "../../context/ToastContext";
 import "./form.css";
 
 const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { showToast } = useToast();
 
   const [input, setInput] = useState({
     name: "",          // Razón Social / Negocio
@@ -56,16 +59,16 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const provinciaLower = input.provincia.toLowerCase();
+    const provinciaLower = input.provincia.trim().toLowerCase();
     const provinciasValidas = ["corrientes", "chaco", "interior"];
 
     if (!provinciasValidas.includes(provinciaLower)) {
-      alert("La provincia debe ser: corrientes, chaco o interior");
+      showToast("Por favor selecciona una zona válida: Chaco, Corrientes o Interior de Chaco", "warning");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3001/clientes");
+      const response = await fetch(`${API_URL}/clientes`);
       const data = await response.json();
 
       const existeCliente = Array.isArray(data) && data.find(
@@ -77,7 +80,7 @@ const Form = () => {
       );
 
       if (existeCliente) {
-        alert("El cliente ya existe en esta provincia");
+        showToast("El cliente ya existe en esta provincia", "error");
         return;
       }
 
@@ -94,12 +97,12 @@ const Form = () => {
       try {
         const res = await dispatch(postClientes(clienteAEnviar));
         if (!res) {
-          alert("Modo demo: el cliente no se guardó en el backend");
+          showToast("Aviso: el cliente se guardó en modo demo", "info");
         } else {
-          alert("¡Cliente registrado exitosamente!");
+          showToast("¡Cliente registrado exitosamente!", "success");
         }
       } catch (dispatchErr) {
-        alert("Modo demo: el cliente no se guardó en el backend");
+        showToast("Aviso: el cliente se guardó en modo demo", "info");
       }
 
       setInput({
@@ -201,17 +204,20 @@ const Form = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="provincia">Provincia</label>
-          <input
-            type="text"
+          <label htmlFor="provincia">Zona / Provincia</label>
+          <select
             className="input-group"
-            placeholder="corrientes / chaco / interior"
             value={input.provincia}
             name="provincia"
             id="provincia"
             required
             onChange={handleChange}
-          />
+          >
+            <option value="">-- Seleccionar Zona --</option>
+            <option value="chaco">Chaco (Resistencia)</option>
+            <option value="corrientes">Corrientes</option>
+            <option value="interior">Interior de Chaco</option>
+          </select>
         </div>
 
         <div className="form-group">

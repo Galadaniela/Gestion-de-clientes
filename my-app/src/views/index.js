@@ -3,6 +3,7 @@ import Interior from "./Home/Interior.jsx";
 import Form from "./Form/Form.jsx";
 import Chaco from "./Home/Chaco.jsx";
 import Corrientes from "./Home/Corrientes.jsx";
+import Login from "./Login/Login.jsx";
 
 export {
   Landing,
@@ -10,4 +11,5 @@ export {
   Form,
   Corrientes,
   Chaco,
+  Login,
 };

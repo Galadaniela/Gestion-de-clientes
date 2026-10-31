@@ -1,0 +1,112 @@
+/* ==============================================================
+   🔔 NOTIFICACIONES TOAST FLOTANTES (SUZ CRM)
+   ============================================================== */
+
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none; /* Permite hacer clic a través del contenedor */
+  max-width: 400px;
+  width: calc(100vw - 48px);
+}
+
+.toast-card {
+  pointer-events: auto; /* Reactiva clics en las tarjetas individuales */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: rgba(22, 22, 31, 0.95);
+  backdrop-filter: blur(16px);
+  color: var(--text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border);
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: all 0.2s ease;
+}
+
+.toast-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.7);
+}
+
+/* Tipos de Toast */
+.toast-success {
+  border-color: var(--success);
+  box-shadow: 0 4px 20px rgba(0, 229, 160, 0.2);
+}
+
+.toast-error {
+  border-color: var(--danger);
+  box-shadow: 0 4px 20px var(--danger-glow);
+}
+
+.toast-warning {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+}
+
+.toast-info {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+/* Icono y texto */
+.toast-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.toast-msg {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Botón cerrar */
+.toast-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.toast-close:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Animación de entrada */
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Responsive en móviles */
+@media (max-width: 480px) {
+  .toast-container {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+}

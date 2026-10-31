@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateClientes, deleteClientes } from "../../redux/actions";
+import { API_URL } from "../../utils/config";
 import Card from "../../components/Card/Card";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { Link } from "react-router-dom";
@@ -16,7 +17,7 @@ const Chaco = ({ provincia }) => {
     if (!provincia) return;
 
     axios
-      .get("http://localhost:3001/clientes")
+      .get(`${API_URL}/clientes`)
       .then((response) => {
         const data = Array.isArray(response.data) ? response.data : [];
         const filtrados = data.filter(
@@ -82,7 +83,7 @@ const Chaco = ({ provincia }) => {
 
   return (
     <div className="Interior">
-      <h1>Clientes en Chaco</h1>
+      <h1>Clientes en Chaco (Resistencia)</h1>
 
       <div className="barra-superior">
         <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
