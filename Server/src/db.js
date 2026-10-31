@@ -16,7 +16,18 @@ const DB_PASSWORD = process.env.DB_PASSWORD !== undefined ? process.env.DB_PASSW
 const DB_HOST = process.env.DB_HOST || 'localhost';
 const DB_PORT = process.env.DB_PORT || 3306;
 
-// 2. Creamos la instancia de Sequelize
+// 2. Si nos conectamos a una base en la nube (ej: TiDB Cloud, Railway), habilitamos SSL
+const esRemoto = DB_HOST !== 'localhost' && DB_HOST !== '127.0.0.1';
+const dialectOptions = esRemoto
+  ? {
+      ssl: {
+        minVersion: 'TLSv1.2',
+        rejectUnauthorized: true,
+      },
+    }
+  : {};
+
+// 3. Creamos la instancia de Sequelize
 const sequelize = new Sequelize(
   DB_NAME,
   DB_USER,
@@ -25,17 +36,18 @@ const sequelize = new Sequelize(
     host: DB_HOST,
     port: DB_PORT,
     dialect: 'mysql',
+    dialectOptions,
     logging: false,
   }
 );
 
-// 3. Inicializamos los modelos
+// 4. Inicializamos los modelos
 Clientesmodels(sequelize);
 Pedidosmodels(sequelize);
 
 const { Clientes, Pedidos } = sequelize.models;
 
-// 4. Relaciones entre tablas
+// 5. Relaciones entre tablas
 Clientes.hasMany(Pedidos);
 Pedidos.belongsTo(Clientes);
 
