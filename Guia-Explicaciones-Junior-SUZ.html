@@ -465,6 +465,52 @@
     </div>
   </div>
 
+  <!-- TEMA 10 (NUEVO: ESTRATEGIA DE DESPLIEGUE EN LA NUBE 100% GRATUITO) -->
+  <div class="section">
+    <div class="section-title">10. Estrategia y Despliegue en la Nube (Deploy Full Stack en Producción)</div>
+    
+    <div class="card">
+      <span class="badge badge-alert">¿Por qué no se puede desplegar todo en GitHub?</span>
+      <p>Es una duda clásica de los estudiantes de programación. La razón técnica es:</p>
+      <ul>
+        <li><strong>GitHub solo almacena código:</strong> Es un sistema de control de versiones (como un almacén digital). No tiene un procesador ejecutando un servidor de Node.js las 24 horas ni tiene un motor MySQL para guardar tablas y registros en disco.</li>
+        <li><strong>GitHub Pages no sirve para Full Stack:</strong> GitHub Pages solo puede renderizar sitios estáticos (HTML/CSS planos). No puede ejecutar una base de datos relacional ni procesar peticiones dinámicas de Express.</li>
+      </ul>
+
+      <span class="badge badge-code">¿Cuál es la arquitectura en la nube que implementamos?</span>
+      <p>Separamos el sistema en tres capas independientes (arquitectura desacoplada de la industria) sin costo alguno ($0):</p>
+      <ol>
+        <li><strong>Base de Datos Relacional (TiDB Cloud Serverless):</strong>
+          <ul>
+            <li>Instancia de MySQL 8.0 real en la nube con 5 GB de almacenamiento permanente gratuito.</li>
+            <li>Conexión cifrada de alta seguridad con <strong>SSL / TLSv1.2</strong> integrada dinámicamente en <code>Server/src/db.js</code> para que el servidor local no requiera SSL, pero la nube sí lo use obligatoriamente.</li>
+          </ul>
+        </li>
+        <li><strong>Backend API REST (Render.com):</strong>
+          <ul>
+            <li>Despliega como <em>Web Service</em> la carpeta <code>Server</code> directamente conectado a GitHub (Continuous Deployment).</li>
+            <li>Configurado con variables de entorno (<code>PORT</code>, <code>DB_HOST</code>, <code>DB_USER</code>, <code>DB_PASSWORD</code>, <code>DB_NAME</code>, <code>CLIENT_URL</code>).</li>
+            <li>Al arrancar, ejecuta <code>sequelize.sync({ alter: true })</code> y construye automáticamente las tablas <code>Clientes</code> y <code>Pedidos</code> en TiDB Cloud.</li>
+          </ul>
+        </li>
+        <li><strong>Frontend SPA (Vercel):</strong>
+          <ul>
+            <li>Aloja la aplicación React de la carpeta <code>my-app</code> distribuida en una red global CDN con HTTPS nativo.</li>
+            <li>Consume la URL pública del backend mediante la variable <code>REACT_APP_API_URL</code>.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <span class="badge badge-speech">Detalle técnico: El "Sleep" de los servidores gratuitos</span>
+      <p>En el plan gratuito de Render, el servidor entra en hibernación si no recibe peticiones durante 15 minutos para ahorrar energía. La primera carga tarda unos 40 segundos en "despertar", y luego responde en milisegundos.</p>
+
+      <div class="speech-box">
+        <strong>🗣️ ¿Cómo explicar el despliegue al profesor si te pregunta?</strong>
+        "Para llevar el proyecto a producción implementamos una arquitectura desacoplada estándar de la industria. No se puede alojar todo en GitHub porque GitHub solo gestiona el código fuente y no ejecuta servidores ni bases de datos. Por eso, desplegamos la base de datos MySQL en TiDB Cloud con cifrado SSL, el backend de Node.js y Express en Render.com conectado a GitHub para despliegue continuo (CI/CD), y el frontend de React en Vercel. Todas las conexiones se realizan mediante variables de entorno seguras, lo que garantiza que nunca se expongan contraseñas y que la aplicación funcione en internet de forma permanente y 100% gratuita."
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     SUZ CRM • Guía de referencia técnica para el equipo de desarrollo • Archivo generado automáticamente
   </div>
