@@ -7,26 +7,23 @@ const { sequelize } = require("./db");
 
 const PORT = process.env.PORT || 3001;
 
+// 1. Ponemos a escuchar el servidor Express de inmediato en 0.0.0.0
+// para que Render y los balanceadores de carga en la nube reconozcan el puerto abierto sin demoras.
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Servidor SUZ corriendo en el puerto ${PORT}`);
+});
+
+// 2. Conectamos con la base de datos de manera resiliente
 (async () => {
   try {
-    // 1. Probamos que la conexión con MySQL sea exitosa
+    // Probamos la conexión con MySQL / TiDB Cloud
     await sequelize.authenticate();
-    console.log("✅ Conexión a MySQL OK");
+    console.log("✅ Conexión a TiDB Cloud MySQL establecida correctamente");
 
-    // 2. Sincronizamos las tablas de forma segura sin borrar datos:
-    // Con "alter: true", Sequelize revisa la base de datos existente.
-    // Si agregamos columnas nuevas en los modelos (ej: contacto, frecuencia, cantidadKg),
-    // Sequelize ejecuta un "ALTER TABLE" para crearlas automáticamente,
-    // conservando intactos todos los clientes y ventas ya guardadas.
+    // Sincronizamos las tablas preservando los datos
     await sequelize.sync({ alter: true });
-    console.log("✅ Tablas sincronizadas con MySQL (columnas actualizadas sin borrar datos)");
-
-    // 3. Ponemos a escuchar el servidor Express
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    });
+    console.log("✅ Tablas sincronizadas con TiDB Cloud MySQL");
   } catch (error) {
-    console.error("❌ Error al arrancar el servidor:", error.message);
-    process.exit(1);
+    console.error("⚠️ Error en conexión con base de datos:", error.message);
   }
 })();

@@ -22,7 +22,7 @@ const dialectOptions = esRemoto
   ? {
       ssl: {
         minVersion: 'TLSv1.2',
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
       },
     }
   : {};
