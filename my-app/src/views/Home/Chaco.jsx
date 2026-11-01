@@ -11,10 +11,12 @@ import "./Styles.css";
 const Chaco = ({ provincia }) => {
   const dispatch = useDispatch();
   const [clientes, setClientes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (!provincia) return;
+    setLoading(true);
 
     axios
       .get(`${API_URL}/clientes`)
@@ -27,7 +29,8 @@ const Chaco = ({ provincia }) => {
         );
         setClientes(filtrados);
       })
-      .catch((error) => console.log("❌ Error al traer clientes:", error));
+      .catch((error) => console.log("❌ Error al traer clientes:", error))
+      .finally(() => setLoading(false));
   }, [provincia]);
 
   // Actualizar (saldar deuda o guardar cambios)
@@ -106,7 +109,11 @@ const Chaco = ({ provincia }) => {
           </span>
         </div>
 
-        {conDeuda.length === 0 ? (
+        {loading ? (
+          <div className="crm-vacio">
+            <p>⏳ Conectando con la base de datos en la nube y cargando clientes...</p>
+          </div>
+        ) : conDeuda.length === 0 ? (
           <div className="crm-vacio">
             <p>✅ ¡Excelente! No hay clientes con deuda en Chaco.</p>
           </div>
@@ -125,7 +132,11 @@ const Chaco = ({ provincia }) => {
           </span>
         </div>
 
-        {sinDeuda.length === 0 ? (
+        {loading ? (
+          <div className="crm-vacio">
+            <p>⏳ Conectando con la base de datos en la nube y cargando clientes...</p>
+          </div>
+        ) : sinDeuda.length === 0 ? (
           <div className="crm-vacio">
             <p>No hay clientes registrados sin deuda.</p>
           </div>

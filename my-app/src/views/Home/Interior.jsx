@@ -11,10 +11,12 @@ import "./Styles.css";
 const Interior = ({ provincia }) => {
   const dispatch = useDispatch();
   const [provinciaData, setProvinciaData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (provincia) {
+      setLoading(true);
       const provinciaLowerCase = provincia.toLowerCase();
       axios
         .get(`${API_URL}/clientes`)
@@ -25,7 +27,8 @@ const Interior = ({ provincia }) => {
           );
           setProvinciaData(filteredData);
         })
-        .catch((err) => console.error("Error al traer clientes:", err));
+        .catch((err) => console.error("Error al traer clientes:", err))
+        .finally(() => setLoading(false));
     }
   }, [provincia]);
 
@@ -68,7 +71,11 @@ const Interior = ({ provincia }) => {
           </span>
         </div>
 
-        {clientes.length === 0 ? (
+        {loading ? (
+          <div className="crm-vacio">
+            <p>⏳ Conectando con la base de datos en la nube y cargando clientes...</p>
+          </div>
+        ) : clientes.length === 0 ? (
           <div className="crm-vacio">
             <p>{textoVacio}</p>
           </div>

@@ -13,6 +13,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { showToast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [input, setInput] = useState({
     name: "",          // Razón Social / Negocio
@@ -58,6 +59,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     const provinciaLower = input.provincia.trim().toLowerCase();
     const provinciasValidas = ["corrientes", "chaco", "interior"];
@@ -67,20 +69,33 @@ const Form = () => {
       return;
     }
 
-    try {
-      const response = await fetch(`${API_URL}/clientes`);
-      const data = await response.json();
+    setIsSubmitting(true);
 
-      const existeCliente = Array.isArray(data) && data.find(
-        (cliente) =>
-          cliente.name &&
-          cliente.name.toLowerCase() === input.name.toLowerCase() &&
-          cliente.provincia &&
-          cliente.provincia.toLowerCase() === provinciaLower
-      );
+    try {
+      // 1. Verificación rápida de duplicados sin trabar la pantalla
+      let existeCliente = false;
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const response = await fetch(`${API_URL}/clientes`, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (response.ok) {
+          const data = await response.json();
+          existeCliente = Array.isArray(data) && data.find(
+            (cliente) =>
+              cliente.name &&
+              cliente.name.toLowerCase() === input.name.toLowerCase() &&
+              cliente.provincia &&
+              cliente.provincia.toLowerCase() === provinciaLower
+          );
+        }
+      } catch (checkErr) {
+        console.warn("Validación de duplicados omitida por lentitud de red:", checkErr.message);
+      }
 
       if (existeCliente) {
         showToast("El cliente ya existe en esta provincia", "error");
+        setIsSubmitting(false);
         return;
       }
 
@@ -130,8 +145,10 @@ const Form = () => {
       };
       history.push(rutas[provinciaLower]);
     } catch (error) {
-      console.log("Error:", error);
-      alert("Hubo un problema al crear el cliente");
+      console.error("Error al crear cliente:", error);
+      showToast("Hubo un problema de conexión al crear el cliente. Reintenta.", "error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -382,8 +399,8 @@ const Form = () => {
           />
         </div>
 
-        <button className="btn-form" type="submit">
-          Ingresar Cliente
+        <button className="btn-form" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "⏳ Guardando en la nube..." : "Ingresar Cliente"}
         </button>
       </form>
     </div>
