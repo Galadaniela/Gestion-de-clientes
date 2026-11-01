@@ -497,6 +497,7 @@
           <ul>
             <li>Aloja la aplicación React de la carpeta <code>my-app</code> distribuida en una red global CDN con HTTPS nativo.</li>
             <li>Consume la URL pública del backend mediante la variable <code>REACT_APP_API_URL</code>.</li>
+            <li><strong>Manejo de rutas SPA (<code>vercel.json</code>):</strong> En las Single Page Applications con React Router, si un usuario recarga la página en una ruta interna (ej: <code>/Chaco</code> o <code>/login</code>), el servidor de Vercel buscaría un archivo físico que no existe y arrojaría error 404. Creamos un archivo <code>my-app/vercel.json</code> que reescribe todas las peticiones hacia <code>/index.html</code> para que React Router tome el control de la navegación sin errores.</li>
           </ul>
         </li>
       </ol>
