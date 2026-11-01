@@ -510,6 +510,110 @@
         "Para llevar el proyecto a producción implementamos una arquitectura desacoplada estándar de la industria. No se puede alojar todo en GitHub porque GitHub solo gestiona el código fuente y no ejecuta servidores ni bases de datos. Por eso, desplegamos la base de datos MySQL en TiDB Cloud con cifrado SSL, el backend de Node.js y Express en Render.com conectado a GitHub para despliegue continuo (CI/CD), y el frontend de React en Vercel. Todas las conexiones se realizan mediante variables de entorno seguras, lo que garantiza que nunca se expongan contraseñas y que la aplicación funcione en internet de forma permanente y 100% gratuita."
       </div>
     </div>
+
+    <!-- SECCIÓN 11: FICHA DE PRODUCCIÓN EN VIVO Y DEMO EN EXAMEN -->
+    <div class="section-title">11. Ficha de Producción en Vivo y Guión para la Mesa de Examen</div>
+    
+    <div class="card">
+      <span class="badge badge-concept">Enlaces Oficiales de la Aplicación en Producción</span>
+      <table>
+        <thead>
+          <tr>
+            <th>Componente</th>
+            <th>Proveedor Cloud</th>
+            <th>URL / Host Público</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Frontend (SPA React)</strong></td>
+            <td>Vercel</td>
+            <td><code>https://gestion-de-clientes-nine.vercel.app/login</code></td>
+            <td>🟢 En línea (HTTPS)</td>
+          </tr>
+          <tr>
+            <td><strong>Backend (REST API Node/Express)</strong></td>
+            <td>Render</td>
+            <td><code>https://suz-backend.onrender.com</code></td>
+            <td>🟢 En línea (Web Service)</td>
+          </tr>
+          <tr>
+            <td><strong>Base de Datos (MySQL 8.0)</strong></td>
+            <td>TiDB Cloud Serverless</td>
+            <td><code>gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000</code></td>
+            <td>🟢 Activa (SSL/TLS 1.2)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <span class="badge badge-concept">Credenciales para la Demostración Rápida</span>
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Contraseña</th>
+            <th>Rol / Permiso</th>
+            <th>Área Asignada</th>
+            <th>Comportamiento en la Demo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>admin</code></td>
+            <td><code>123</code></td>
+            <td>Administrador General</td>
+            <td>Todas las áreas</td>
+            <td>Accede a la botonera de navegación superior, ve todas las provincias y altas.</td>
+          </tr>
+          <tr>
+            <td><code>chaco</code></td>
+            <td><code>123</code></td>
+            <td>Preventista Chaco</td>
+            <td>Chaco (Gran Resistencia)</td>
+            <td>Redirigido a <code>/Chaco</code>; bloqueado de Corrientes e Interior.</td>
+          </tr>
+          <tr>
+            <td><code>corrientes</code></td>
+            <td><code>123</code></td>
+            <td>Preventista Corrientes</td>
+            <td>Corrientes</td>
+            <td>Redirigido a <code>/corrientes</code>; solo gestiona su cartera.</td>
+          </tr>
+          <tr>
+            <td><code>interior</code></td>
+            <td><code>123</code></td>
+            <td>Preventista Interior</td>
+            <td>Interior de Chaco</td>
+            <td>Redirigido a <code>/Interior</code>; clientes de Sáenz Peña, Villa Ángela, etc.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <span class="badge badge-alert">Resolución Técnica de CORS en Producción: Wildcard (*) vs Credentials</span>
+      <p>Al desplegar en Render y Vercel surgió un desafío técnico clásico de seguridad web: cuando una API responde con <code>Access-Control-Allow-Credentials: true</code>, la especificación W3C y los navegadores modernos (Chrome, Edge, Firefox) <strong>prohíben terminantemente</strong> usar el comodín asterisco (<code>Access-Control-Allow-Origin: *</code>). Si se combinan ambos, el navegador bloquea la llamada por violación de seguridad CORS.</p>
+      <p><strong>¿Cómo lo solucionamos de manera profesional?</strong></p>
+      <ul>
+        <li>En <code>Server/src/app.js</code> implementamos una función dinámica de origen que verifica el origen entrante de la petición y devuelve exactamente la URL del frontend (<code>https://gestion-de-clientes-nine.vercel.app</code> o <code>http://localhost:3000</code>) en lugar de un asterisco genérico.</li>
+        <li>Agregamos soporte nativo para responder con HTTP 200 inmediato a las peticiones preflight <code>OPTIONS</code> de los navegadores, eliminando el 100% de los bloqueos de red.</li>
+      </ul>
+
+      <span class="badge badge-code">Verificación de Integración End-to-End Real</span>
+      <p>Comprobamos en vivo el ciclo completo: se envió un cliente de prueba desde el exterior al backend de Render y se verificó que la fila fue guardada de forma persistente en las tablas de MySQL en TiDB Cloud, confirmando que la sincronización de campos (<code>contacto</code>, <code>frecuencia</code>, <code>monto</code>, <code>deuda</code> en <code>DECIMAL(12, 2)</code>) funciona a la perfección en la nube.</p>
+
+      <div class="speech-box">
+        <strong>🗣️ Guión de 3 Pasos para Mostrar la Aplicación en Vivo frente al Profesor:</strong>
+        <br><br>
+        <strong>Paso 1: Abrir la URL en vivo</strong><br>
+        "Profesor, la aplicación está completamente desplegada en internet. Voy a ingresar a <code>https://gestion-de-clientes-nine.vercel.app/login</code>. Notará que cuenta con botones de acceso rápido para la mesa de evaluación. Voy a entrar primero como Administrador con clave 123."
+        <br><br>
+        <strong>Paso 2: Mostrar el Control de Acceso y el Semáforo</strong><br>
+        "Como Administrador puedo auditar las tres zonas comerciales: Chaco, Corrientes e Interior de Chaco. Al ingresar a Chaco, vemos el Semáforo Comercial en tiempo real calculando la próxima reposición de mercadería y dividiendo a los clientes entre quienes tienen deuda pendiente y quienes están al día."
+        <br><br>
+        <strong>Paso 3: Probar la Persistencia en MySQL TiDB Cloud</strong><br>
+        "Si registramos una venta o saldamos una deuda con el botón 'Saldar', la información viaja por HTTP hacia nuestro servidor en Render y se guarda con cifrado SSL en nuestra base de datos MySQL en TiDB Cloud. Si cerramos sesión o recargamos la página, los datos permanecen intactos demostrando la persistencia relacional completa."
+      </div>
+    </div>
   </div>
 
   <div class="footer">

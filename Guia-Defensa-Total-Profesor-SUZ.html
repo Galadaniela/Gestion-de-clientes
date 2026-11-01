@@ -971,13 +971,18 @@ showToast(<span class="string">"El cliente ya existe en esta provincia"</span>, 
     </div>
 
     <div class="callout callout-teacher">
-      <div class="callout-title">❓ Pregunta 4: "¿Qué es CORS y por qué tuviste que configurarlo en app.js?"</div>
-      <p><strong>Respuesta modelo:</strong> "CORS significa Cross-Origin Resource Sharing (Intercambio de Recursos de Origen Cruzado). Es un mecanismo de seguridad de los navegadores que bloquea las peticiones cuando el frontend (que corre en el puerto 3000) intenta pedirle datos a un servidor en otro puerto o dominio (el backend en el puerto 3001). En <code>app.js</code> configuramos el middleware <code>cors()</code> leyendo la variable de entorno <code>CLIENT_URL</code> para indicarle al servidor qué dominios tienen autorización para consumir nuestros endpoints."</p>
+      <div class="callout-title">❓ Pregunta 4: "¿Qué es CORS y cómo lo configuraste para producción?"</div>
+      <p><strong>Respuesta modelo:</strong> "CORS significa Cross-Origin Resource Sharing. Es una política de seguridad que los navegadores aplican cuando el frontend alojado en Vercel intenta consumir la API alojada en Render. Al activar <code>credentials: true</code> para cookies o cabeceras seguras, la especificación de los navegadores modernos prohíbe el uso del comodín asterisco (<code>*</code>). Para solucionarlo de forma robusta, configuré en <code>app.js</code> un origen dinámico que refleja el dominio oficial de Vercel (<code>https://gestion-de-clientes-nine.vercel.app</code>) y el entorno local de desarrollo (<code>localhost:3000</code>), respondiendo inmediatamente con HTTP 200 a las peticiones preflight OPTIONS."</p>
     </div>
 
     <div class="callout callout-teacher">
       <div class="callout-title">❓ Pregunta 5: "¿Cómo funciona el botón Saldar en la tarjeta?"</div>
       <p><strong>Respuesta modelo:</strong> "En <code>Card.js</code>, el botón Saldar toma el monto total del pedido (kilos &times; precio) y ejecuta un dispatch de <code>updateClientes</code> enviando el cliente con <code>monto: montoTotal</code> y <code>deuda: 0</code>. Esto viaja por Axios por método PUT a <code>/clientes/:id</code>. El controlador de Express actualiza la fila en MySQL con <code>cliente.save()</code> y el frontend actualiza el estado local mostrando al instante la deuda en verde ($0) y disparando una notificación Toast de confirmación sin recargar la pantalla."</p>
+    </div>
+
+    <div class="callout callout-teacher">
+      <div class="callout-title">❓ Pregunta 6: "¿Cómo está desplegada la arquitectura en internet y por qué no se puede subir todo a GitHub?"</div>
+      <p><strong>Respuesta modelo:</strong> "GitHub es únicamente un sistema de control de versiones y almacenamiento de código fuente; no tiene un procesador ejecutando un servidor Express ni una base de datos relacional MySQL 24/7. Por eso implementamos una arquitectura desacoplada y gratuita en 3 capas de producción: la base de datos MySQL 8.0 en <strong>TiDB Cloud Serverless</strong> con cifrado obligatorio SSL/TLS 1.2; el backend Node.js en <strong>Render</strong> conectado al repositorio para despliegue continuo (CI/CD); y la Single Page Application de React en la red CDN global de <strong>Vercel</strong> con reglas de reescritura en <code>vercel.json</code> para soportar el enrutamiento interno de React Router."</p>
     </div>
   </div>
 

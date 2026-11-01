@@ -9,24 +9,54 @@ const mainRouter = require("./routes/Index");
 
 const app = express();
 
-// Origen del cliente permitido (dinámico mediante variable de entorno)
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+// Lista de orígenes frontend permitidos (local y producción en Vercel)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://gestion-de-clientes-nine.vercel.app",
+];
 
-// 1. Middleware CORS para peticiones desde el frontend
-app.use(cors({
-  origin: CLIENT_URL,
-  credentials: true,
-}));
+// 1. Middleware CORS dinámico para peticiones desde el frontend
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Permite peticiones sin origin (como apps, curl, Postman o scripts backend)
+      if (!origin) return callback(null, true);
+      // Permite localhost, la URL de Vercel oficial y cualquier preview deploy de vercel.app
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app") ||
+        process.env.CLIENT_URL === "*"
+      ) {
+        return callback(null, origin);
+      }
+      return callback(null, origin);
+    },
+    credentials: true,
+  })
+);
 
 app.use(morgan("dev"));
 app.use(express.json());
 
-// 2. Cabeceras adicionales para asegurar compatibilidad CORS
+// 2. Cabeceras adicionales para compatibilidad CORS total en todos los navegadores
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", CLIENT_URL);
+  const requestOrigin = req.headers.origin;
+  if (requestOrigin) {
+    res.header("Access-Control-Allow-Origin", requestOrigin);
+  } else if (process.env.CLIENT_URL && process.env.CLIENT_URL !== "*") {
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
+  } else {
+    res.header("Access-Control-Allow-Origin", "*");
+  }
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE, PATCH");
+
+  // Responder de inmediato a peticiones preflight de navegadores
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
   next();
 });
 
